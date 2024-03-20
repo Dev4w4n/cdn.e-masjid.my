@@ -3,8 +3,6 @@ package main
 import (
 	"log"
 	"net/http"
-	"os"
-	"strings"
 
 	"github.com/Dev4w4n/cdn.e-masjid.my/api/image-store-api/utils"
 
@@ -22,7 +20,11 @@ func main() {
 
 	// Initialize image folders
 	log.Println("Initializing image folders ...")
-	initializeImageFolders(env)
+	err = utils.InitializeImageFolders(env)
+	if err != nil {
+		log.Fatalf("Error initializing image folders: %v", err)
+	}
+	log.Println("Done initializing image folders.")
 
 	// CORS configuration
 	config := cors.DefaultConfig()
@@ -60,39 +62,4 @@ func controllerMiddleware(env *utils.Environment) gin.HandlerFunc {
 			return
 		}
 	}
-}
-
-func initializeImageFolders(env *utils.Environment) error {
-	namespace := env.Namespace
-
-	repositoryPath := env.RepositoryPath
-
-	// Change directory to the repository path
-	if err := os.Chdir(repositoryPath); err != nil {
-		log.Printf("Error changing directory: %v\n", err)
-		return err
-	}
-
-	// Split the namespace by comma to get individual folder names
-	folders := strings.Split(namespace, ",")
-
-	// Iterate through each folder name and check if it exists
-	for _, folder := range folders {
-		if _, err := os.Stat(folder); os.IsNotExist(err) {
-			// If folder doesn't exist, create it
-			err := os.Mkdir(folder, 0755)
-			if err != nil {
-				log.Printf("Error creating folder %s: %v\n", folder, err)
-				return err
-			} else {
-				log.Printf("Folder %s created successfully.\n", folder)
-			}
-		} else if err != nil {
-			log.Printf("Error checking folder %s: %v\n", folder, err)
-			return err
-		} else {
-			log.Printf("Folder %s already exists.\n", folder)
-		}
-	}
-	return nil
 }

@@ -18,7 +18,7 @@ type Environment struct {
 func GetEnvironment() (*Environment, error) {
 	env := os.Getenv("GO_ENV")
 	if env == "" {
-		env = "dev"
+		env = "local"
 	}
 
 	envFile := fmt.Sprintf(".env.%s", env)
