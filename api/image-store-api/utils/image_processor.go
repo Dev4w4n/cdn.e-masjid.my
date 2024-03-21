@@ -88,7 +88,7 @@ func saveMasjidImage(request model.Request, env *Environment) (model.Response, e
 	namespace := request.Namespace
 	imageData := request.Data
 	dataType := request.DataType
-	imageName := request.ImageName
+	imageName := "main"
 
 	repositoryPath := env.RepositoryPath
 	folderPath := filepath.Join(repositoryPath, namespace)
