@@ -6,8 +6,7 @@ WORKDIR /app
 
 # Copy the local code to the container
 COPY . .
-COPY .env.* .
-COPY ./images/main.png ./images
+COPY ./images/main.jpg .
 
 # Install any dependencies your application might need
 RUN go get -d -v ./...
@@ -27,12 +26,13 @@ ENV GO_ENV=$GO_ENV
 
 # Set the working directory inside the container
 WORKDIR /app
-RUN mkdir /app/images
 
 # Copy only the built binary from the builder stage
 COPY --from=builder /app/image-server .
 COPY --from=builder /app/.env.* .
-COPY --from=builder /app/images/main.png ./images
+COPY --from=builder /app/main.jpg .
+
+RUN mkdir -p /app2
 
 # Expose the port that your application will run on
 EXPOSE 8080

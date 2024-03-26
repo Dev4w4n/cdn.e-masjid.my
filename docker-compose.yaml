@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+  nginx:
+    build:
+      context: ./nginx
+    ports:
+      - "80:80"
+
+  image-store-api:
+    build:
+      context: ./api/image-store-api
+    ports:
+      - "9000:8080"
+    environment:
+      - GO_ENV=dev
+    depends_on:
+      - nginx
+    command: ["./image-server"]
+

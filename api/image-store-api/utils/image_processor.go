@@ -13,10 +13,38 @@ import (
 
 func InitializeImageFolders(env *Environment) error {
 	namespace := env.Namespace
+	workdir := env.Workdir
 	repositoryPath := env.RepositoryPath
 
-	// Change directory to the repository path
+	// Change directory to the repositoryPath path
 	if err := os.Chdir(repositoryPath); err != nil {
+		log.Printf("Error changing directory: %v\n", err)
+		return err
+	}
+
+	// Create the images folder if it doesn't exist
+	if _, err := os.Stat("images"); os.IsNotExist(err) {
+		err := os.Mkdir("images", 0755)
+		if err != nil {
+			log.Printf("Error creating images folder: %v\n", err)
+			return err
+		}
+		log.Printf("Images folder created successfully.\n")
+	}
+
+	// Copy Workdir main.jpg to repositoryPath images folder
+	workFile := filepath.Join(workdir, "main.jpg")
+	repositoryFile := filepath.Join(repositoryPath, "images", "main.jpg")
+	log.Printf("Copying " + workFile + " to " + repositoryFile + ".\n")
+	err := copyFile(workFile, repositoryFile)
+	if err != nil {
+		log.Printf("Error copying file: %v\n", err)
+		return err
+	}
+	log.Printf("Successfull.\n")
+
+	// Change directory to the repository path
+	if err := os.Chdir(repositoryPath + "/images"); err != nil {
 		log.Printf("Error changing directory: %v\n", err)
 		return err
 	}
@@ -24,8 +52,8 @@ func InitializeImageFolders(env *Environment) error {
 	// Split the namespace by comma to get individual folder names
 	folders := strings.Split(namespace, ",")
 
-	// Copy main.png file to each newly created folder
-	sourceFile := "main.png" // Change this to the actual file name you want to copy
+	// Copy main.jpg file to each newly created folder
+	sourceFile := filepath.Join(repositoryPath, "images", "main.jpg") // Change this to the actual file name you want to copy
 	// Iterate through each folder name and check if it exists
 	for _, folder := range folders {
 		// Check if the folder exists, if not create it
@@ -39,13 +67,13 @@ func InitializeImageFolders(env *Environment) error {
 		}
 
 		// Copy the file into the folder
-		destination := filepath.Join(folder, sourceFile)
+		destination := filepath.Join(repositoryPath, "images", folder, "main.jpg")
 		if _, err := os.Stat(destination); os.IsNotExist(err) {
 			err := copyFile(sourceFile, destination)
 			if err != nil {
-				log.Printf("Error copying file %s to folder %s: %v\n", sourceFile, folder, err)
+				log.Printf("Error copying file %s to folder %s: %v\n", sourceFile, destination, err)
 			} else {
-				log.Printf("File %s copied to folder %s.\n", sourceFile, folder)
+				log.Printf("File %s copied to folder %s.\n", sourceFile, destination)
 			}
 		}
 	}
