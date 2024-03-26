@@ -1,0 +1,4 @@
+deploy-to-kubernetes.yaml
+file-copy-pod.yaml
+kaniko-build-pod.yaml
+deploy.sh
