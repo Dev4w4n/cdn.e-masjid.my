@@ -29,7 +29,7 @@ func NewCDNController(engine *gin.Engine, service service.CDNService, env *utils
 }
 
 func (controller *CDNController) Upload(ctx *gin.Context) {
-	log.Info().Msg("Saving image")
+	log.Info().Msg("Saving file")
 
 	saveImage := model.Request{}
 	err := ctx.ShouldBindJSON(&saveImage)
