@@ -23,8 +23,7 @@ func NewUploadService(dbRepository repository.DbRepository, fileRepository repos
 }
 
 func (repo *UploadServiceImpl) SaveFile(request model.Request, env *utils.Environment) (model.Response, error) {
-
-	repo.dbRepository.SaveFile(request, env)
-	repo.fileRepository.SaveImage(request, env)
+	repo.fileRepository.SaveFile(request, env)
+	repo.dbRepository.SaveMetadata(request, env)
 	return model.Response{}, nil
 }

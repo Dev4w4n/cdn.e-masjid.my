@@ -10,7 +10,7 @@ import (
 )
 
 type FileRepository interface {
-	SaveImage(request model.Request, env *utils.Environment) (model.Response, error)
+	SaveFile(request model.Request, env *utils.Environment) (model.Response, error)
 }
 
 type FileRepositoryImpl struct {
@@ -20,7 +20,7 @@ func NewFileRepository() FileRepository {
 	return &FileRepositoryImpl{}
 }
 
-func (i *FileRepositoryImpl) SaveImage(request model.Request, env *utils.Environment) (model.Response, error) {
+func (i *FileRepositoryImpl) SaveFile(request model.Request, env *utils.Environment) (model.Response, error) {
 	response, err := saveMasjidImage(request, env)
 
 	if err != nil {
