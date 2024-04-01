@@ -6,6 +6,8 @@ services:
       context: ./nginx
     ports:
       - "80:80"
+    volumes:
+      - /Users/rohaizan/Codes/microk8s/emasjid/cdn.e-masjid.my/nginx/img-init:/usr/share/nginx/html
 
   image-store-api:
     build:
@@ -16,5 +18,7 @@ services:
       - GO_ENV=dev
     depends_on:
       - nginx
+    volumes:
+      - /Users/rohaizan/Codes/microk8s/emasjid/cdn.e-masjid.my/nginx/img-init:/app2
     command: ["./image-server"]
 

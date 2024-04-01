@@ -4,7 +4,7 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/Dev4w4n/cdn.e-masjid.my/api/image-store-api/utils"
+	"github.com/Dev4w4n/cdn.e-masjid.my/api/upload-api/utils"
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
@@ -17,14 +17,6 @@ func main() {
 	if err != nil {
 		log.Fatalf("Error getting environment: %v", err)
 	}
-
-	// Initialize image folders
-	log.Println("Initializing image folders ...")
-	err = utils.InitializeImageFolders(env)
-	if err != nil {
-		log.Fatalf("Error initializing image folders: %v", err)
-	}
-	log.Println("Done initializing image folders.")
 
 	// CORS configuration
 	config := cors.DefaultConfig()

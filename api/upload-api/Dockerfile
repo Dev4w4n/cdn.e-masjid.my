@@ -6,7 +6,6 @@ WORKDIR /app
 
 # Copy the local code to the container
 COPY . .
-COPY ./images/main.jpg .
 
 # Install any dependencies your application might need
 RUN go get -d -v ./...
@@ -30,7 +29,6 @@ WORKDIR /app
 # Copy only the built binary from the builder stage
 COPY --from=builder /app/image-server .
 COPY --from=builder /app/.env.* .
-COPY --from=builder /app/main.jpg .
 
 RUN mkdir -p /app2
 
