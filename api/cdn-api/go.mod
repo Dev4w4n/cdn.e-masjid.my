@@ -1,4 +1,4 @@
-module github.com/Dev4w4n/cdn.e-masjid.my/api/upload-api
+module github.com/Dev4w4n/cdn.e-masjid.my/api/cdn-api
 
 go 1.21.6
 

@@ -5,8 +5,8 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/Dev4w4n/cdn.e-masjid.my/api/upload-api/model"
-	"github.com/Dev4w4n/cdn.e-masjid.my/api/upload-api/utils"
+	"github.com/Dev4w4n/cdn.e-masjid.my/api/cdn-api/model"
+	"github.com/Dev4w4n/cdn.e-masjid.my/api/cdn-api/utils"
 )
 
 type FileRepository interface {

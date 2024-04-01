@@ -4,7 +4,7 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/Dev4w4n/cdn.e-masjid.my/api/upload-api/utils"
+	"github.com/Dev4w4n/cdn.e-masjid.my/api/cdn-api/utils"
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
