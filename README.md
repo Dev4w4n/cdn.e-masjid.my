@@ -16,7 +16,7 @@ body (object)
     "sub_domain" : "localhost",
     "table_reference" : "tetapan",
     "mark_as_delete" : false,
-    "data" : "12988e29u2180901928e801u92eu810e920u1289ee29801"
+    "data" : "[in bytes]"
 }
 ```
 
