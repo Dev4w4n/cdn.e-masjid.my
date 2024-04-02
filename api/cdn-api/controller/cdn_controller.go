@@ -31,11 +31,11 @@ func NewCDNController(engine *gin.Engine, service service.CDNService, env *utils
 func (controller *CDNController) Upload(ctx *gin.Context) {
 	log.Info().Msg("Saving file")
 
-	saveImage := model.Request{}
-	err := ctx.ShouldBindJSON(&saveImage)
+	request := model.Request{}
+	err := ctx.ShouldBindJSON(&request)
 	utils.WebError(ctx, err, "failed to bind JSON")
 
-	response, err := controller.cdnService.Upload(saveImage, &controller.env)
+	response, err := controller.cdnService.Upload(request, &controller.env)
 	utils.WebError(ctx, err, "failed to save image")
 
 	ctx.Header("Content-Type", "application/json")

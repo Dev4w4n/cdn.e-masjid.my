@@ -17,7 +17,7 @@ func NewFileRepository() FileRepository {
 }
 
 func (i *FileRepositoryImpl) SaveFile(request model.Request, env *utils.Environment) (model.Response, error) {
-	response, err := saveMasjidImage(request, env)
+	response, err := save(request, env)
 
 	if err != nil {
 		return model.Response{}, err
@@ -26,7 +26,7 @@ func (i *FileRepositoryImpl) SaveFile(request model.Request, env *utils.Environm
 	return response, nil
 }
 
-func saveMasjidImage(request model.Request, env *utils.Environment) (model.Response, error) {
+func save(request model.Request, env *utils.Environment) (model.Response, error) {
 	// namespace := request.Namespace
 	// imageData := request.Data
 	// dataType := request.DataType

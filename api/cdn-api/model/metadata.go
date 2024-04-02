@@ -9,3 +9,7 @@ type Metadata struct {
 	MarkAsDelete   bool   `gorm:"column:mark_as_delete" json:"mark_as_delete"`
 	CreateDate     int64  `gorm:"column:create_date" json:"create_date"`
 }
+
+func (Metadata) TableName() string {
+	return "metadata"
+}

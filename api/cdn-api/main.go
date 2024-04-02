@@ -3,6 +3,7 @@ package main
 import (
 	"log"
 	"net/http"
+	"os"
 
 	"github.com/Dev4w4n/cdn.e-masjid.my/api/cdn-api/config"
 	"github.com/Dev4w4n/cdn.e-masjid.my/api/cdn-api/controller"
@@ -40,7 +41,11 @@ func main() {
 	gin.SetMode(gin.ReleaseMode)
 	r := gin.Default()
 	r.Use(cors.New(config))
-	r.Use(controllerMiddleware(env))
+
+	isLocalEnv := os.Getenv("GO_ENV")
+	if isLocalEnv != "" {
+		r.Use(controllerMiddleware(env))
+	}
 
 	_ = controller.NewCDNController(r, cdnService, env)
 

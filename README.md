@@ -50,10 +50,10 @@ application/json
 </td>
 </tr>
 <tr>
-<td> 401 </td>
+<td> 403 </td>
 <td>
 
-**Unauthorized**
+**Forbidden**
 
 </td>
 </tr>

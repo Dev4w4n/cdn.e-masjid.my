@@ -1,33 +1,31 @@
 package repository
 
 import (
+	"time"
+
 	"github.com/Dev4w4n/cdn.e-masjid.my/api/cdn-api/model"
 	"gorm.io/gorm"
 )
 
 type DbRepository interface {
-	SaveMetadata(request model.Request) error
+	SaveMetadata(metadata model.Metadata) error
 }
 
 type DbRepositoryImpl struct {
-	db *gorm.DB
+	Db *gorm.DB
 }
 
 func NewDbRepository(db *gorm.DB) DbRepository {
 	db.AutoMigrate(&model.Metadata{})
 
-	return &DbRepositoryImpl{}
+	return &DbRepositoryImpl{Db: db}
 }
 
-func (repo *DbRepositoryImpl) SaveMetadata(request model.Request) error {
+func (repo *DbRepositoryImpl) SaveMetadata(metadata model.Metadata) error {
 
-	metadata := model.Metadata{
-		TableReference: request.TableReference,
-		SubDomain:      request.SubDomain,
-		MarkAsDelete:   request.MarkAsDelete,
-		MimeType:       request.MimeType,
-	}
-	result := repo.db.Save(&metadata)
+	tuple := metadata
+	tuple.CreateDate = time.Now().AddDate(time.Now().Year(), 1, 1).Unix() / 1000
+	result := repo.Db.Save(&tuple)
 
 	if result.Error != nil {
 		return result.Error
