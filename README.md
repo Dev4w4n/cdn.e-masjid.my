@@ -29,7 +29,7 @@ image/webp
 application/pdf
 ```
 
-## Response
+### Response
 
 <table>
 <tr>

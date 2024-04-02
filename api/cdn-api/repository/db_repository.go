@@ -2,12 +2,11 @@ package repository
 
 import (
 	"github.com/Dev4w4n/cdn.e-masjid.my/api/cdn-api/model"
-	"github.com/Dev4w4n/cdn.e-masjid.my/api/cdn-api/utils"
 	"gorm.io/gorm"
 )
 
 type DbRepository interface {
-	SaveMetadata(request model.Request, env *utils.Environment) (model.Response, error)
+	SaveMetadata(request model.Request) error
 }
 
 type DbRepositoryImpl struct {
@@ -20,17 +19,19 @@ func NewDbRepository(db *gorm.DB) DbRepository {
 	return &DbRepositoryImpl{}
 }
 
-func (repo *DbRepositoryImpl) SaveMetadata(request model.Request, env *utils.Environment) (model.Response, error) {
+func (repo *DbRepositoryImpl) SaveMetadata(request model.Request) error {
 
 	metadata := model.Metadata{
-		Id:       1,
-		MimeType: "request.MimeType",
+		TableReference: request.TableReference,
+		SubDomain:      request.SubDomain,
+		MarkAsDelete:   request.MarkAsDelete,
+		MimeType:       request.MimeType,
 	}
 	result := repo.db.Save(&metadata)
 
 	if result.Error != nil {
-		return model.Response{}, result.Error
+		return result.Error
 	}
 
-	return model.Response{}, nil
+	return nil
 }

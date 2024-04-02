@@ -24,6 +24,12 @@ func NewCDNService(dbRepository repository.DbRepository, fileRepository reposito
 
 func (repo *CDNServiceImpl) Upload(request model.Request, env *utils.Environment) (model.Response, error) {
 	repo.fileRepository.SaveFile(request, env)
-	repo.dbRepository.SaveMetadata(request, env)
+
+	err := repo.dbRepository.SaveMetadata(request)
+
+	if err != nil {
+		return model.Response{}, err
+	}
+
 	return model.Response{}, nil
 }
