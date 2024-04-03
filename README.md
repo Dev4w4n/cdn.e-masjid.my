@@ -16,9 +16,10 @@ body (object)
     "sub_domain" : "localhost",
     "table_reference" : "tetapan",
     "mark_as_delete" : false,
-    "base64_file" : "iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAIAAADdvvtQAAA3hHpUWHRSYXcgcHJvZmlsZSB0eXBlIGV4aWYAAHjapZxZluU2smX/OYo"
+    "base64_file" : "iVBORw0KGgoAAAANSUhEUgAAAMAA...."
 }
 ```
+File to Base64 reference: https://base64.guru/converter/encode/file
 
 ### Allowed Mime types
 ```
@@ -43,8 +44,8 @@ application/pdf
 application/json
 {
     "id": 10,
-    "path": "https://cdn.e-masjid.my/files/213123-e21ed-12e-12e--12e.jpg",
-    "created_at": "2024-04-01T20:45:26.433Z"
+    "path": "https://cdn.e-masjid.my/demo/951ef9cf-eab5-40d1-ad24-5afa2d2de185.jpg",
+    "created_at": "65586126"
 }
 ```
 </td>
