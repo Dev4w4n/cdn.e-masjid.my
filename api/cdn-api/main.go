@@ -43,7 +43,7 @@ func main() {
 	r.Use(cors.New(config))
 
 	isLocalEnv := os.Getenv("GO_ENV")
-	if isLocalEnv != "" {
+	if isLocalEnv != "" && isLocalEnv != "dev" {
 		r.Use(controllerMiddleware(env))
 	}
 

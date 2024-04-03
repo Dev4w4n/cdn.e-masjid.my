@@ -5,5 +5,5 @@ type Request struct {
 	SubDomain      string `json:"sub_domain"`
 	TableReference string `json:"table_reference"`
 	MarkAsDelete   bool   `json:"mark_as_delete"`
-	Data           string `json:"data"`
+	Base64File     string `json:"base64_file"`
 }

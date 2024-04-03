@@ -1,7 +1,7 @@
 package model
 
 type Response struct {
-	ID        int    `json:"id"`
+	ID        int64  `json:"id"`
 	Path      string `json:"path"`
-	CreatedAt string `json:"created_at"`
+	CreatedAt int64  `json:"created_at"`
 }

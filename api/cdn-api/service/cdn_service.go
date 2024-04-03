@@ -1,6 +1,8 @@
 package service
 
 import (
+	"os"
+
 	"github.com/Dev4w4n/cdn.e-masjid.my/api/cdn-api/model"
 	"github.com/Dev4w4n/cdn.e-masjid.my/api/cdn-api/repository"
 	"github.com/Dev4w4n/cdn.e-masjid.my/api/cdn-api/utils"
@@ -23,19 +25,31 @@ func NewCDNService(dbRepository repository.DbRepository, fileRepository reposito
 }
 
 func (repo *CDNServiceImpl) Upload(request model.Request, env *utils.Environment) (model.Response, error) {
-	repo.fileRepository.SaveFile(request, env)
+	response, err := repo.fileRepository.SaveFile(request, env)
+
+	if err != nil {
+		return model.Response{}, err
+	}
+
+	endpoint := "https://cdn.e-masjid.my"
+	isLocalEnv := os.Getenv("GO_ENV")
+	if isLocalEnv == "" || isLocalEnv == "dev" {
+		endpoint = "http://localhost"
+	}
 
 	metadata := model.Metadata{
 		MimeType:       request.MimeType,
 		SubDomain:      request.SubDomain,
 		TableReference: request.TableReference,
 		MarkAsDelete:   request.MarkAsDelete,
+		Path:           endpoint + "/" + response.Path,
 	}
-	err := repo.dbRepository.SaveMetadata(metadata)
+
+	dbResponse, err := repo.dbRepository.SaveMetadata(metadata)
 
 	if err != nil {
 		return model.Response{}, err
 	}
 
-	return model.Response{}, nil
+	return dbResponse, nil
 }

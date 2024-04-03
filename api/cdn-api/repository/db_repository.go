@@ -8,7 +8,7 @@ import (
 )
 
 type DbRepository interface {
-	SaveMetadata(metadata model.Metadata) error
+	SaveMetadata(metadata model.Metadata) (model.Response, error)
 }
 
 type DbRepositoryImpl struct {
@@ -21,15 +21,23 @@ func NewDbRepository(db *gorm.DB) DbRepository {
 	return &DbRepositoryImpl{Db: db}
 }
 
-func (repo *DbRepositoryImpl) SaveMetadata(metadata model.Metadata) error {
+func (repo *DbRepositoryImpl) SaveMetadata(metadata model.Metadata) (model.Response, error) {
 
-	tuple := metadata
-	tuple.CreateDate = time.Now().AddDate(time.Now().Year(), 1, 1).Unix() / 1000
-	result := repo.Db.Save(&tuple)
+	// Set the CreateDate field of the metadata
+	metadata.CreateDate = time.Now().AddDate(time.Now().Year(), 1, 1).Unix() / 1000
 
+	// Save the metadata to the database
+	result := repo.Db.Save(&metadata)
 	if result.Error != nil {
-		return result.Error
+		return model.Response{}, result.Error
 	}
 
-	return nil
+	// Prepare the response with the persisted metadata details
+	response := model.Response{
+		ID:        metadata.Id,
+		Path:      metadata.Path,
+		CreatedAt: metadata.CreateDate,
+	}
+
+	return response, nil
 }
