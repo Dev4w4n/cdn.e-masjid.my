@@ -6,14 +6,13 @@ WORKDIR /app
 
 # Copy the local code to the container
 COPY . .
-COPY ./images/main.jpg .
 
 # Install any dependencies your application might need
 RUN go get -d -v ./...
 RUN go install -v ./...
 
 # Build the Go application
-RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o image-server
+RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o cdn-api
 
 # Stage 2: Create a minimal runtime image
 FROM alpine:latest
@@ -28,9 +27,9 @@ ENV GO_ENV=$GO_ENV
 WORKDIR /app
 
 # Copy only the built binary from the builder stage
-COPY --from=builder /app/image-server .
+COPY --from=builder /app/cdn-api .
 COPY --from=builder /app/.env.* .
-COPY --from=builder /app/main.jpg .
+COPY --from=builder /app/wait-for-it.sh . 
 
 RUN mkdir -p /app2
 
@@ -38,4 +37,4 @@ RUN mkdir -p /app2
 EXPOSE 8080
 
 # Command to run your application
-CMD ["./image-server", "-env", "$GO_ENV"]
+CMD ["./cdn-api", "-env", "$GO_ENV"]

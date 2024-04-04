@@ -2,3 +2,5 @@ deploy-to-kubernetes.yaml
 file-copy-pod.yaml
 kaniko-build-pod.yaml
 deploy.sh
+postgres-setup.yaml
+/nginx/img-init/*

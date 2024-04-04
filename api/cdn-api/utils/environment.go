@@ -14,6 +14,11 @@ type Environment struct {
 	ServerPort     string
 	Workdir        string
 	RepositoryPath string
+	DbHost         string
+	DbPort         string
+	DbUser         string
+	DbPassword     string
+	DbName         string
 }
 
 func GetEnvironment() (*Environment, error) {
@@ -28,6 +33,11 @@ func GetEnvironment() (*Environment, error) {
 	}
 
 	return &Environment{
+		DbHost:         os.Getenv("DB_HOST"),
+		DbPort:         os.Getenv("DB_PORT"),
+		DbUser:         os.Getenv("DB_USER"),
+		DbPassword:     os.Getenv("DB_PASSWORD"),
+		DbName:         os.Getenv("DB_NAME"),
 		Namespace:      os.Getenv("NAMESPACE"),
 		AllowOrigins:   os.Getenv("ALLOWED_ORIGIN"),
 		DeployURL:      os.Getenv("DEPLOY_URL"),
