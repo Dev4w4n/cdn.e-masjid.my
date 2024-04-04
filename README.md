@@ -43,9 +43,9 @@ application/pdf
 ```json
 application/json
 {
-    "id": 10,
-    "path": "https://cdn.e-masjid.my/demo/951ef9cf-eab5-40d1-ad24-5afa2d2de185.jpg",
-    "created_at": "65586126"
+    "id": 2,
+    "path": "https://cdn.e-masjid.my/volume/demo/89a41c2e-da35-4c13-9c4c-2b9a1bb9f980.png",
+    "created_at": 65586206
 }
 ```
 </td>

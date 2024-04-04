@@ -1,8 +1,0 @@
-keep track all files in DB
-
-id
-path
-create_date
-namespace
-table_reference
-mark_as_delete

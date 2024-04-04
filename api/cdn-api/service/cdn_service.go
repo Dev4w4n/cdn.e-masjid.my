@@ -31,10 +31,10 @@ func (repo *CDNServiceImpl) Upload(request model.Request, env *utils.Environment
 		return model.Response{}, err
 	}
 
-	endpoint := "https://cdn.e-masjid.my"
+	endpoint := "https://cdn.e-masjid.my/volume"
 	isLocalEnv := os.Getenv("GO_ENV")
 	if isLocalEnv == "" || isLocalEnv == "dev" {
-		endpoint = "http://localhost"
+		endpoint = "http://localhost/volume"
 	}
 
 	metadata := model.Metadata{

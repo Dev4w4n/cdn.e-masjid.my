@@ -7,7 +7,7 @@ services:
     ports:
       - "80:80"
     volumes:
-      - /Users/rohaizan/Codes/microk8s/emasjid/cdn.e-masjid.my/nginx/img-init:/usr/share/nginx/html
+      - ./nginx/img-init:/usr/share/nginx/html
 
   postgres:
     build:
@@ -29,6 +29,6 @@ services:
     depends_on:
       - nginx
     volumes:
-      - /Users/rohaizan/Codes/microk8s/emasjid/cdn.e-masjid.my/nginx/img-init:/app2
+      - ./nginx/img-init:/app2
     command: ["./wait-for-it.sh", "postgres:5432", "--", "./cdn-api"]
 

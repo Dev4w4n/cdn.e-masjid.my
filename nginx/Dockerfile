@@ -6,7 +6,8 @@ WORKDIR /usr/share/nginx/html/
 # Copy custom nginx configuration files
 COPY nginx.conf /etc/nginx/nginx.conf
 COPY index.html /usr/share/nginx/html/index.html
-COPY ./img-init/main.jpg /usr/share/nginx/html/images/main.jpg
+COPY ./img-init/main.jpg /usr/share/nginx/html/images/demo/main.jpg
+COPY ./img-init/main.jpg /usr/share/nginx/html/volume/demo/main.jpg
 
 VOLUME /usr/share/nginx/html/
 
